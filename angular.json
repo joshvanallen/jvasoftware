@@ -1,0 +1,175 @@
+{
+  "version": 1,
+  "projects": {
+    "twitch-bot": {
+      "projectType": "application",
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "apps/twitch-bot",
+      "sourceRoot": "apps/twitch-bot/src",
+      "prefix": "jvasoftware",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/twitch-bot",
+            "index": "apps/twitch-bot/src/index.html",
+            "main": "apps/twitch-bot/src/main.ts",
+            "polyfills": "apps/twitch-bot/src/polyfills.ts",
+            "tsConfig": "apps/twitch-bot/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "apps/twitch-bot/src/favicon.ico",
+              "apps/twitch-bot/src/assets"
+            ],
+            "styles": ["apps/twitch-bot/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/twitch-bot/src/environments/environment.ts",
+                  "with": "apps/twitch-bot/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "twitch-bot:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "twitch-bot:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "twitch-bot:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/twitch-bot/tsconfig.app.json",
+              "apps/twitch-bot/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/twitch-bot/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/twitch-bot/jest.config.js",
+            "tsConfig": "apps/twitch-bot/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "apps/twitch-bot/src/test-setup.ts"
+          }
+        }
+      }
+    },
+    "twitch-bot-e2e": {
+      "root": "apps/twitch-bot-e2e",
+      "sourceRoot": "apps/twitch-bot-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/twitch-bot-e2e/cypress.json",
+            "tsConfig": "apps/twitch-bot-e2e/tsconfig.e2e.json",
+            "devServerTarget": "twitch-bot:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "twitch-bot:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["apps/twitch-bot-e2e/tsconfig.e2e.json"],
+            "exclude": ["**/node_modules/**", "!apps/twitch-bot-e2e/**/*"]
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/angular"
+  },
+  "schematics": {
+    "@nrwl/workspace": {
+      "library": {
+        "linter": "tslint"
+      }
+    },
+    "@nrwl/cypress": {
+      "cypress-project": {
+        "linter": "tslint"
+      }
+    },
+    "@nrwl/node": {
+      "application": {
+        "linter": "tslint"
+      },
+      "library": {
+        "linter": "tslint"
+      }
+    },
+    "@nrwl/nest": {
+      "application": {
+        "linter": "tslint"
+      },
+      "library": {
+        "linter": "tslint"
+      }
+    },
+    "@nrwl/express": {
+      "application": {
+        "linter": "tslint"
+      },
+      "library": {
+        "linter": "tslint"
+      }
+    },
+    "@nrwl/angular:application": {
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/angular:library": {
+      "unitTestRunner": "jest"
+    }
+  },
+  "defaultProject": "twitch-bot"
+}

@@ -28,6 +28,13 @@
     "twitch-bot-e2e": {
       "tags": [],
       "implicitDependencies": ["twitch-bot"]
+    },
+    "magicateball": {
+      "tags": []
+    },
+    "magicateball-e2e": {
+      "tags": [],
+      "implicitDependencies": ["magicateball"]
     }
   }
 }
